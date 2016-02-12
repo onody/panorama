@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+	<title>{{ title }} | BTC Exchange Rate Checker</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,300,400italic,700,900' rel='stylesheet' type='text/css'>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Bootstrap css -->
+	<link rel=stylesheet type=text/css href="./static/assets/css/bootstrap.min.css">
+	<link rel=stylesheet type=text/css href="./static/assets/css/bootstrap.techie.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	<!-- Docs Custom styles -->
+	<style>
+		body,
+		html {
+			overflow-x: hidden
+		}
+
+		footer {
+			border-top: 1px solid #ddd;
+			padding: 30px;
+			margin-top: 50px
+		}
+
+		.row>[class*=col-] {
+			margin-bottom: 40px
+		}
+
+		.navbar-container {
+			position: relative;
+			min-height: 100px
+		}
+
+		.navbar.navbar-fixed-bottom,
+		.navbar.navbar-fixed-top {
+			position: absolute;
+			top: 50px;
+			z-index: 0
+		}
+
+		.navbar.navbar-fixed-bottom .container,
+		.navbar.navbar-fixed-top .container {
+			max-width: 90%
+		}
+
+		.btn-group {
+			margin-bottom: 10px
+		}
+
+		.form-inline input[type=password],
+		.form-inline input[type=text],
+		.form-inline select {
+			width: 180px
+		}
+
+		.input-group {
+			margin-bottom: 10px
+		}
+
+		.pagination {
+			margin-top: 0
+		}
+
+		.navbar-inverse {
+			margin: 110px 0
+		}
+	</style>
+	<!-- C3js -->
+	<link href="./static/c3/c3.min.css" rel="stylesheet" type="text/css">
+	<!-- Load d3.js and c3.js -->
+	<script src="./static/c3/c3.min.js"></script>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+<div class="container">
+	<h1>{{ title }}</h1> {% block body %}{% endblock %}
+
+</div> <!-- /container -->
+
+<footer class="text-center">
+    <p>うんこたれ</p>
+</footer>
+
+<!-- Main Scripts-->
+<script src="./static/assets/js/jquery.js"></script>
+<script src="./static/assets/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap 3 has typeahead optionally -->
+<script src="./static/assets/js/typeahead.min.js"></script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,239 @@
+{% extends "layout.html" %}{% block body %}
+<!-- http://bootstraptaste.com/demo/Techie/ -->
+
+
+<!-- 板情報 -->
+<div class="row">
+	<div class="col-sm-8 col-lg-8">
+		<h3>寄りつき</h3>
+		<p class="lead text-muted" style="float:right; font-size:12px;">取得日時:2016/01/30</p>
+		<div class="row">
+
+			<div class="tabbable">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#all" data-toggle="tab">全取引所</a></li>
+					<li><a href="#bf" data-toggle="tab">bitFlyer</a></li>
+					<li><a href="#zaif" data-toggle="tab">zaif</a></li>
+					<li><a href="#coin" data-toggle="tab">coincheck</a></li>
+					<li><a href="#btcbox" data-toggle="tab">BTCBOX</a></li>
+				</ul>
+				<div class="tab-content">
+
+					<!-- All -->
+					<div class="tab-pane active" id="all" style="height:800px; overflow-y:scroll;">
+						<table class="table table-striped" data-effect="fade">
+							<thead>
+								<tr>
+									<th>売買</th>
+									<th>取引所</th>
+									<th>金額</th>
+									<th>取引量</th>
+									<th>販売額</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for kv in bf_getboardbidans %}
+								<tr>
+									<td>売</td>
+									<td>bitFlyer</td>
+									<td>{{ kv.price|round|int }}</td>
+									<td>{{ kv.size }}</td>
+									<td>{{ kv.price|round|int * kv.size }}円</td>
+								</tr>{% endfor %}
+							</tbody>
+							<tbody>
+								{% for item in zaif_getboardbidans %}
+								<tr>
+									<td>売</td>
+									<td>zaif</td>
+									<td>{{ item[0]|round|int }}</td>
+									<td>{{ item[1] }}</td>
+									<td>{{ item[0] * item[1] }}円</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					<!-- bitFlyer -->
+					<div class="tab-pane" id="bf" style="height:600px; overflow-y:scroll;">
+						<table class="table table-striped" data-effect="fade">
+							<thead>
+								<tr>
+									<th>売買</th>
+									<th>金額</th>
+									<th>取引量</th>
+									<th>販売額</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for kv in bf_getboardbidans %}
+								<tr>
+									<td>売</td>
+									<td>{{ kv.price|round|int }}</td>
+									<td>{{ kv.size }}</td>
+									<td>{{ kv.price * kv.size }}円</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					<!-- zaif -->
+					<div class="tab-pane" id="zaif" style="height:600px; overflow-y:scroll;">
+						<table class="table table-striped" data-effect="fade">
+							<thead>
+								<tr>
+									<th>売買</th>
+									<th>金額</th>
+									<th>取引量</th>
+									<th>販売額</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in zaif_getboardbidans %}
+								<tr>
+									<td>売</td>
+									<td>{{ item[0]|round|int }}</td>
+									<td>{{ item[1] }}</td>
+									<td>{{ item[0] * item[1] }}円</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					<!-- coincheck -->
+					<div class="tab-pane" id="coin" style="height:600px; overflow-y:scroll;">
+						<table class="table table-striped" data-effect="fade">
+							<thead>
+								<tr>
+									<th>売買</th>
+									<th>金額</th>
+									<th>取引量</th>
+									<th>販売額</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in coin_getboardbidans %}
+								<tr>
+									<td>売</td>
+									<td>{{ item[0]|int }}</td>
+									<td>{{ item[1] }}</td>
+									<td>{{ item[0]|int * item[1]|float }}円</td>
+								</tr>{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					<!-- btcbox -->
+					<div class="tab-pane" id="btcbox" style="height:600px; overflow-y:scroll;">
+						<table class="table table-striped" data-effect="fade">
+							<thead>
+								<tr>
+									<th>売買</th>
+									<th>金額</th>
+									<th>取引量</th>
+									<th>販売額</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in btcbox_getboardbidans %}
+								<tr>
+									<td>売</td>
+									<td>{{ item[0] }}</td>
+									<td>{{ item[1] }}</td>
+									<td>{{ item[0] * item[1] }}円</td>
+								</tr> {% endfor %}
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 右パネル -->
+	<div class="row">
+
+		<div class="col-sm-4 col-lg-4">
+			<h3>板情報詳細</h3>
+			<div id="chart">
+			</div>
+			<div class="panel-group" id="accordion-panel">
+
+				<!-- bitFlyer -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-panel" href="#collapseOnePanel">
+						bitFlyer&nbsp;<span class="label label-{{bf_buttoncolor}}" data-effect="pop">{{ bf_healthans }}
+						</a>
+						</h4>
+					</div>
+					<div id="collapseOnePanel" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<ul>
+								<li>取引最高額{{bf_ticker_best_bid}}</li>
+								<li>取引量{{bf_ticker_best_bid_size}}</li>
+								<li>最低額{{bf_ticker_best_ask}}</li>
+								<li>取引量{{bf_ticker_best_ask_size}}</li>
+								<li>取得時間{{bf_ticker_time}}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- zaif -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-panel" href="#collapseTwoPanel">
+						zaif&nbsp;<span class="label label-{{zaif_buttoncolor}}" data-effect="pop">{{ zaif_healthans }}
+						</a>
+						</h4>
+					</div>
+					<div id="collapseTwoPanel" class="panel-collapse collapse">
+						<div class="panel-body">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+						</div>
+					</div>
+				</div>
+
+				<!-- coincheck -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-panel" href="#collapseThreePanel">
+							coincheck&nbsp;<span class="label label-{{coin_buttoncolor}}" data-effect="pop">{{ coin_healthans }}
+						</a>
+						</h4>
+					</div>
+					<div id="collapseThreePanel" class="panel-collapse collapse">
+						<div class="panel-body">
+							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+						</div>
+					</div>
+				</div>
+
+				<!-- BTCBOX -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-panel" href="#collapseFourPanel">
+						BTCBOX&nbsp;<span class="label label-{{btcbox_buttoncolor}}" data-effect="pop">{{ btcbox_healthans }}
+						</a>
+			  			</h4>
+					</div>
+					<div id="collapseFourPanel" class="panel-collapse collapse">
+						<div class="panel-body">
+							Aliquam facilisis, orci in vulputate posuere, sapien dolor dapibus orci, vitae venenatis dui elit vitae lorem. Sed porta fermentum felis in molestie. Sed porta fermentum felis in molestie. Sed porta fermentum felis in molestie.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% endblock %} {% block script %}
+	<script src="./pie"></script>
+	{% endblock %}
