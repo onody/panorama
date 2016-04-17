@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vendor_id: 1
+  vendor_trade_id: 1
+  price: 1.5
+  amount: 1.5
+  executed_at: 2016-04-17 13:27:09
+
+two:
+  vendor_id: 1
+  vendor_trade_id: 1
+  price: 1.5
+  amount: 1.5
+  executed_at: 2016-04-17 13:27:09

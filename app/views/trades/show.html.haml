@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Vendor:
+  = @trade.vendor_id
+%p
+  %b Vendor trade:
+  = @trade.vendor_trade_id
+%p
+  %b Price:
+  = @trade.price
+%p
+  %b Amount:
+  = @trade.amount
+%p
+  %b Executed at:
+  = @trade.executed_at
+
+= link_to 'Edit', edit_trade_path(@trade)
+\|
+= link_to 'Back', trades_path

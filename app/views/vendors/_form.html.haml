@@ -1,0 +1,22 @@
+= form_for @vendor do |f|
+  - if @vendor.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vendor.errors.count, "error")} prohibited this vendor from being saved:"
+      %ul
+        - @vendor.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :api
+    = f.text_field :api
+  .field
+    = f.label :url_board
+    = f.text_field :url_board
+  .field
+    = f.label :url_trade
+    = f.text_field :url_trade
+  .actions
+    = f.submit 'Save'

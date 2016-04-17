@@ -1,0 +1,27 @@
+%h1 Listing vendors
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Api
+      %th Url board
+      %th Url trade
+      %th
+      %th
+      %th
+
+  %tbody
+    - @vendors.each do |vendor|
+      %tr
+        %td= vendor.name
+        %td= vendor.api
+        %td= vendor.url_board
+        %td= vendor.url_trade
+        %td= link_to 'Show', vendor
+        %td= link_to 'Edit', edit_vendor_path(vendor)
+        %td= link_to 'Destroy', vendor, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Vendor', new_vendor_path

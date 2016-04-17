@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @vendor.name
+%p
+  %b Api:
+  = @vendor.api
+%p
+  %b Url board:
+  = @vendor.url_board
+%p
+  %b Url trade:
+  = @vendor.url_trade
+
+= link_to 'Edit', edit_vendor_path(@vendor)
+\|
+= link_to 'Back', vendors_path

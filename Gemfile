@@ -45,3 +45,12 @@ group :development do
   gem 'spring'
 end
 
+# for haml
+gem 'haml-rails'
+gem 'erb2haml'
+
+# for unsigned
+gem 'activerecord-mysql-unsigned'
+
+# http
+gem 'faraday'
