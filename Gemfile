@@ -27,7 +27,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+group :production do
+  gem 'unicorn'
+end
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -54,3 +56,14 @@ gem 'activerecord-mysql-unsigned'
 
 # http
 gem 'faraday'
+
+# cron
+gem 'whenever', :require => false
+
+# for deployment
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+end
