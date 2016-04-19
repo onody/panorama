@@ -9,6 +9,7 @@ set :repo_url, 'git@github.com:onody/panorama.git'
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'
+set :deploy_to, '/home/panorama/src'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -24,19 +25,20 @@ set :log_level, :debug
 
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
-set :linked_dirs, %w{bin bundle log tmp/pids tmp/cache tmp/sockets public/system}
+set :linked_dirs, %w{bundle log tmp/pids tmp/cache tmp/sockets public/system}
 
 # Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, { path: "~/.rbenv/shims:~/.rbenv/bin:$PATH" }
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
-set :whenever_command, "bundle exec whenever"
+#set :whenever_command, "bundle exec whenever"
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 namespace :deploy do
   desc 'Upload database.yml'
@@ -46,6 +48,16 @@ namespace :deploy do
         execute "mkdir -p #{shared_path}/config"
       end
       upload!('config/database.yml', "#{shared_path}/config/database.yml")
+    end
+  end
+
+  desc 'Upload secrets.yml'
+  task :upload do
+    on roles(:app) do |host|
+      if test "[ ! -d #{shared_path}/config ]"
+        execute "mkdir -p #{shared_path}/config"
+      end
+      upload!('config/secrets.yml', "#{shared_path}/config/secrets.yml")
     end
   end
 
