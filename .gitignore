@@ -20,5 +20,6 @@ vendor/bundle
 !/log/.keep
 /tmp
 
-# Ignore database config file
+# Ignore config files
 /config/database.yml
+/config/secrets.yml
