@@ -4,10 +4,13 @@
 # http://en.wikipedia.org/wiki/Cron
 set :output, 'log/cron.log'
 
-every 1.minute do
+every '*/7 * * * *'
   runner "Tasks::Bitflyer::TradeTask.new.execute"
+end
+every '*/9 * * * *'
   runner "Tasks::Zaif::TradeTask.new.execute"
+end
+every '*/11 * * * *'
   runner "Tasks::Coincheck::TradeTask.new.execute"
 end
-
 # Learn more: http://github.com/javan/whenever
