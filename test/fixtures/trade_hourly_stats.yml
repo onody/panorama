@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vendor_id: 1
+  hour: 2016-05-15 10:44:11
+  avg_price: 1.5
+
+two:
+  vendor_id: 1
+  hour: 2016-05-15 10:44:11
+  avg_price: 1.5

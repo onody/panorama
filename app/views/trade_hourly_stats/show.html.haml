@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Vendor:
+  = @trade_hourly_stat.vendor_id
+%p
+  %b Hour:
+  = @trade_hourly_stat.hour
+%p
+  %b Avg price:
+  = @trade_hourly_stat.avg_price
+
+= link_to 'Edit', edit_trade_hourly_stat_path(@trade_hourly_stat)
+\|
+= link_to 'Back', trade_hourly_stats_path

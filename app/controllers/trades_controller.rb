@@ -1,74 +1,37 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:show, :edit, :update, :destroy]
+  require 'crudable'
+  include CRUDable
 
-  # GET /trades
-  # GET /trades.json
-  def index
-    @trades = Trade.all
-  end
-
-  # GET /trades/1
-  # GET /trades/1.json
-  def show
-  end
-
-  # GET /trades/new
-  def new
-    @trade = Trade.new
-  end
-
-  # GET /trades/1/edit
-  def edit
-  end
-
-  # POST /trades
-  # POST /trades.json
-  def create
-    @trade = Trade.new(trade_params)
+  def chart
+    @trade_hourly_stats = for_chart_format
 
     respond_to do |format|
-      if @trade.save
-        format.html { redirect_to @trade, notice: 'Trade was successfully created.' }
-        format.json { render :show, status: :created, location: @trade }
-      else
-        format.html { render :new }
-        format.json { render json: @trade.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /trades/1
-  # PATCH/PUT /trades/1.json
-  def update
-    respond_to do |format|
-      if @trade.update(trade_params)
-        format.html { redirect_to @trade, notice: 'Trade was successfully updated.' }
-        format.json { render :show, status: :ok, location: @trade }
-      else
-        format.html { render :edit }
-        format.json { render json: @trade.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /trades/1
-  # DELETE /trades/1.json
-  def destroy
-    @trade.destroy
-    respond_to do |format|
-      format.html { redirect_to trades_url, notice: 'Trade was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { render json: @trade_hourly_stats }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trade
-      @trade = Trade.find(params[:id])
+
+  def for_chart_format
+    result = []
+
+    days = ['x']
+    24.downto(1) do |i|
+      days << i.hour.ago.strftime('%m-%d %H')
+    end
+    result << days
+
+    vendors = Vendor.all
+    vendors.each do |v|
+      row = [v.name]
+      24.downto(1) do |i|
+        t = i.hour.ago
+        ths = TradeHourlyStat.where(vendor_id: v.id, hour: Time.new(t.year, t.month, t.day, t.hour)).first
+        row << (ths ? ths.avg_price : nil)
+      end
+      result << row
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def trade_params
-      params.require(:trade).permit(:vendor_id, :vendor_trade_id, :price, :amount, :executed_at)
-    end
+    result
+  end
 end

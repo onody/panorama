@@ -1,0 +1,25 @@
+%h1 Listing trade_hourly_stats
+
+%table
+  %thead
+    %tr
+      %th Vendor
+      %th Hour
+      %th Avg price
+      %th
+      %th
+      %th
+
+  %tbody
+    - @trade_hourly_stats.each do |trade_hourly_stat|
+      %tr
+        %td= trade_hourly_stat.vendor_id
+        %td= trade_hourly_stat.hour
+        %td= trade_hourly_stat.avg_price
+        %td= link_to 'Show', trade_hourly_stat
+        %td= link_to 'Edit', edit_trade_hourly_stat_path(trade_hourly_stat)
+        %td= link_to 'Destroy', trade_hourly_stat, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Trade hourly stat', new_trade_hourly_stat_path

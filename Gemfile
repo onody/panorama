@@ -68,3 +68,9 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn'
 end
+
+# for paging
+gem 'kaminari'
+
+# for cors
+gem 'rack-cors', :require => 'rack/cors'

@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417043826) do
+ActiveRecord::Schema.define(version: 20160515014411) do
+
+  create_table "trade_hourly_stats", force: :cascade do |t|
+    t.integer  "vendor_id", limit: 4,  null: false, unsigned: true
+    t.datetime "hour"
+    t.float    "avg_price", limit: 24, null: false, unsigned: true
+  end
+
+  add_index "trade_hourly_stats", ["vendor_id", "hour"], name: "additional_idx01", using: :btree
 
   create_table "trades", force: :cascade do |t|
     t.integer  "vendor_id",       limit: 4,   null: false, unsigned: true

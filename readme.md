@@ -1,6 +1,6 @@
 # Panorama
 
-![](./images/panorama.tiff)
+![](./bk/images/panorama.tiff)
 
 ## 0. About this program
 This shows you a bitcoin market price and the status about all of the markets, that means you don't have to go around to find where is the cheapest price to buy, or the highest price to sell. Works for only Japanese bitcoin market, but I will update soon with a tons of features like realtime board information, price chart and status code.

@@ -13,4 +13,7 @@ end
 every '*/11 * * * *' do
   runner "Tasks::Coincheck::TradeTask.new.execute"
 end
+every '0 * * * *' do
+  runner "Tasks::TradeHourlyStatTask.new.execute"
+end
 # Learn more: http://github.com/javan/whenever

@@ -1,0 +1,2 @@
+module TradeHourlyStatsHelper
+end
