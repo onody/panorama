@@ -14,12 +14,13 @@
 ActiveRecord::Schema.define(version: 20160515014411) do
 
   create_table "trade_hourly_stats", force: :cascade do |t|
-    t.integer  "vendor_id", limit: 4,  null: false, unsigned: true
+    t.integer  "vendor_id",  limit: 4,   null: false, unsigned: true
+    t.string   "trade_type", limit: 255
     t.datetime "hour"
-    t.float    "avg_price", limit: 24, null: false, unsigned: true
+    t.float    "avg_price",  limit: 24,  null: false, unsigned: true
   end
 
-  add_index "trade_hourly_stats", ["vendor_id", "hour"], name: "additional_idx01", using: :btree
+  add_index "trade_hourly_stats", ["vendor_id", "trade_type", "hour"], name: "additional_idx01", using: :btree
 
   create_table "trades", force: :cascade do |t|
     t.integer  "vendor_id",       limit: 4,   null: false, unsigned: true

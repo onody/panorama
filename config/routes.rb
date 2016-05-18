@@ -4,5 +4,7 @@ Rails.application.routes.draw do
       get :chart, to: 'trades#chart'
     end
   end
-  resources :vendors
+  resources :vendors do
+    get :chart, to: 'vendors#chart'
+  end
 end
