@@ -1,5 +1,5 @@
 class TradesController < ApplicationController
-  require 'crudable'
+  require "crudable"
   include CRUDable
   include Chart
 
